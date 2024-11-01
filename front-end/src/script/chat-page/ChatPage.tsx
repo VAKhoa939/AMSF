@@ -2,7 +2,7 @@ import {useState} from 'react'
 import '../../css/ChatPage.css'
 import ChatBox from './ChatBox'
 import ChatInput from './ChatInput'
-import Message, {isMessage} from './Message'
+import Message, {isMessageList} from './Message'
 
 const ChatPage = () => {
   const [message, setMessage] = useState<string>('');
@@ -70,9 +70,11 @@ const ChatPage = () => {
       const response = await fetch(handleMessageURL, requestOptions);
       const data = await response.json();
 
-      if (isMessage(data)) {
+      if (isMessageList(data)) {
         cancelWaitingMessage();
-        showMessage(data);
+        data.forEach(message => {
+          showMessage(message);
+        });
       }
     } 
     catch(error) {
