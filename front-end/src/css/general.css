@@ -1,0 +1,7 @@
+body, header, div, p, textarea, button, img {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Segoe UI';
+}

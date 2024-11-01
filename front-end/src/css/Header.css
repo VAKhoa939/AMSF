@@ -1,0 +1,79 @@
+header {
+  height: 150px;
+  background-color: white;
+  z-index: 100;
+}
+
+.blue-section {
+  background-color: rgb(11, 8, 158);
+  height: 40px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-right: 50px;
+  gap: 10px;
+}
+
+.login-btn a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
+.login-btn, .dropdown-btn {
+  padding: 9px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  color: white;
+  min-width: 160px;
+}
+
+.dropdown-menu {
+  margin: 0;
+  list-style-type: none;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 20;
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 9px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.login-btn:hover, .dropdown:hover .dropdown-btn {
+  opacity: 0.7;
+}
+
+.white-section {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  padding-left: 10px;
+}
+
+.ute-img {
+  height: 80px;
+}
