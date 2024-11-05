@@ -3,39 +3,37 @@ import removeIcon from '../../assets/chat-page/remove-icon.png';
 import sendIcon from '../../assets/chat-page/send-icon.png';
 
 interface Props {
-  message: string
-  setMessage: React.Dispatch<React.SetStateAction<string>>
+  messageText: string
+  setMessageText: React.Dispatch<React.SetStateAction<string>>
   handleChat(): void;
 }
 
 const ChatInput = (props: Props) => {
-  const {message, setMessage, handleChat} = props;
+  const TEXTAREA_MAX_ROWS = 5;
+  const TEXTAREA_LINE_HEIGHT = 30
+
+  const {messageText, setMessageText, handleChat} = props;
 
   const showRemoveBtn = (currentMessage = '') => {
-    const btn = document.querySelector('.remove-btn');
-    if (!btn) return;
+    const btn = document.querySelector('.remove-btn') as HTMLButtonElement;
     btn.style.visibility = (currentMessage) ? 'visible' : 'hidden';
   }
 
   const changeRows = () => {
-    const field = document.querySelector('.input-area textarea');
-    if (!field) return;
-
+    const field = document.querySelector('.input-area textarea') as HTMLTextAreaElement;
     field.style.height = 'auto';
-    const maxRows = 5;
-    const lineHeight = 30;
-    const newHeight = Math.min(field.scrollHeight, lineHeight * maxRows);
-    field.style.height = `${newHeight}px`;
 
+    const newHeight = Math.min(field.scrollHeight, TEXTAREA_LINE_HEIGHT * TEXTAREA_MAX_ROWS);
+    field.style.height = `${newHeight}px`;
     console.log(field.scrollHeight);
-    const chatInput = document.querySelector('.chat-input');
-    if (!chatInput) return;
+
+    const chatInput = document.querySelector('.chat-input') as HTMLDivElement;
     chatInput.style.height = `${newHeight + 60}px`;
   }
 
   const removeText = () => {
-    setMessage('');
-    const field = document.querySelector('.input-area textarea');
+    setMessageText('');
+    const field = document.querySelector('.input-area textarea') as HTMLTextAreaElement;
     if (!field) return;
     field.value = '';
     changeRows();
@@ -49,10 +47,10 @@ const ChatInput = (props: Props) => {
               <textarea 
                 rows={1}
                 placeholder='Enter a message...'
-                value={message}
+                value={messageText}
                 onInput={changeRows}
                 onChange={(e) => {
-                  setMessage(e.target.value);
+                  setMessageText(e.target.value);
                   showRemoveBtn(e.target.value);
                 }}
                 onKeyDown={(e) => {

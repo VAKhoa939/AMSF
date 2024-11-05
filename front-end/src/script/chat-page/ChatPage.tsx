@@ -5,14 +5,17 @@ import ChatInput from './ChatInput'
 import Message, {isMessageList} from './Message'
 
 const ChatPage = () => {
-  const [message, setMessage] = useState<string>('');
+  const [messageText, setMessageText] = useState<string>('');
   const [messageList, setMessageList] = useState<Message[]>([]);
+
+  const HANDLE_MESSAGE_URL = 'http://127.0.0.1:3000/message';
+  //const HANDLE_MESSAGE_URL = 'http://127.0.0.1:5000/';
+  const SECOND = 1000;
   let isWaiting = false;
   let waitingTimeoutId: number;
-  const handleMessageURL = 'http://127.0.0.1:5000/';
 
   const handleChat = () => {
-    const trimMessage = message.trim();
+    const trimMessage = messageText.trim();
     if (!trimMessage) return false;
 
     const userMessage: Message = {
@@ -67,13 +70,13 @@ const ChatPage = () => {
     }
 
     try {
-      const response = await fetch(handleMessageURL, requestOptions);
+      const response = await fetch(HANDLE_MESSAGE_URL, requestOptions);
       const data = await response.json();
 
       if (isMessageList(data)) {
         cancelWaitingMessage();
-        data.forEach(message => {
-          showMessage(message);
+        data.forEach((message, i) => {
+          setTimeout(() => showMessage(message), SECOND * (i + 1));
         });
       }
     } 
@@ -85,7 +88,7 @@ const ChatPage = () => {
         type: 'text'
       }
       cancelWaitingMessage();
-      showMessage(errorMessage);
+      setTimeout(() => showMessage(errorMessage), SECOND * 2);
     }
   }
 
@@ -97,8 +100,8 @@ const ChatPage = () => {
           messageList={messageList}
           />
           <ChatInput 
-          message={message}
-          setMessage={setMessage}
+          messageText={messageText}
+          setMessageText={setMessageText}
           handleChat={handleChat}
           />
         </div>

@@ -1,11 +1,14 @@
 import aiAvatar from '../../assets/chat-page/ai-avatar.png'
 import Message from './Message'
 
-const createChat = (message: Message) => {
-  const chatbox = document.querySelector('.chat-box');
-  if (chatbox) chatbox.scrollTo(0, chatbox.scrollHeight);
+interface Props {
+  messageList: Message[]
+}
 
-  if (message.className === 'incoming') { // AI Response
+const ChatBox = (props: Props) => {
+  const {messageList} = props;
+
+  function createIncomingTextChat(message: Message) {
     return (
       <div className='chat incoming'>
         <img className='avatar' src={aiAvatar}/>
@@ -13,19 +16,27 @@ const createChat = (message: Message) => {
       </div>
     );
   }
-  return ( // User Request
-    <div className='chat outgoing'>
-      <p>{message.content}</p>
-    </div>
-  );
-}
 
-interface Props {
-  messageList: Message[]
-}
-
-const ChatBox = (props: Props) => {
-  const {messageList} = props;
+  function createChat(message: Message) {
+    const chatbox = document.querySelector('.chat-box') as HTMLDivElement;
+    chatbox.scrollTo(0, chatbox.scrollHeight);
+  
+    if (message.className === 'incoming') { // AI Response
+      switch (message.type) {
+        case 'image': // insert image function here
+        case 'table': // insert table function here
+        case 'text':
+          return createIncomingTextChat(message);
+        default:
+          return (<></>);
+      }
+    }
+    return ( // User Request
+      <div className='chat outgoing'>
+        <p>{message.content}</p>
+      </div>
+    );
+  }
 
   return (
     <div className='chat-box'>
