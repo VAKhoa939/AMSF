@@ -9,7 +9,7 @@ function Header() {
       <div className='blue-section'>
         <DropdownLanguage />
         <div className='login-btn'>
-          <a href='#'>Login</a>
+          <a href='/login'>Login</a>
         </div>
       </div>
       <div className='white-section'>
